@@ -1,4 +1,6 @@
+import HeroImage from "@/public/hero-image.png"
 import Link from "next/link";
+
 export default function Home() {
   return (
     <main>
@@ -15,7 +17,7 @@ export default function Home() {
             library of user-submitted models.
           </p>
 
-          <div className="flex gap-4">
+        <div className="flex gap-4">
   <Link
     href="/3d-models"
     className="px-6 py-3 text-black transition duration-100 bg-white border-2 border-black hover:bg-black hover:text-white"
@@ -24,8 +26,9 @@ export default function Home() {
   </Link>
 </div>
         </div>
-        <img src="/hero-image.png" width={350} />
+        <img src={HeroImage.src} className="w-[350px] h-auto rounded-lg" />
       </section>
     </main>
   )
 }
+
