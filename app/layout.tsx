@@ -29,18 +29,15 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <div className="relative">
             <nav className="w-full overflow-x-auto md:overflow-visible scrollbar-hide">
               <ul className="flex px-4 py-3 space-x-4 whitespace-nowrap md:flex-col md:p-0 md:space-x-0 md:space-y-3">
-                <li>
-                  <NavLink href="/3d-models">
-                    All
-                  </NavLink>
-                </li>
+                <NavLink href="/3d-models">All</NavLink>
 
                 {categories.map((item) => (
-                  <li key={item.slug}>
-                    <NavLink href={`/3d-models/categories/${item.slug}`}>
-                      {item.displayName}
-                    </NavLink>
-                  </li>
+                  <NavLink
+                    key={item.slug}
+                    href={`/3d-models/categories/${item.slug}`}
+                  >
+                    {item.displayName}
+                  </NavLink>
                 ))}
               </ul>
             </nav>
