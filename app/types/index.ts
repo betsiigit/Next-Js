@@ -54,4 +54,5 @@ export type PillProps = HTMLAttributes<HTMLSpanElement> & {
 export type NavLinkProps = {
     href: string
     children: ReactNode
+    isActive?:boolean
 }
