@@ -1,60 +1,41 @@
-import "./globals.css";
-import { Albert_Sans, Montserrat_Alternates } from "next/font/google"
-import PFLogoIcon from "@/public/printforge-logo-icon.svg"
-import PFLogo from "@/public/printforge-logo.svg"
 import Link from "next/link"
+import type { ReactNode } from "react"
+import { getAllCategories } from "@/app/lib/categories"
+import type { Category } from "@/app/types"
+import "./globals.css";
 
-
-const albertSans = Albert_Sans({
-  subsets: ["latin"],
-  display: "swap"
-})
-
-const montserratAlternates = Montserrat_Alternates({
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-  variable: "--font-montserrat-alternates"
-})
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function ModelsLayout({ children }: { children: ReactNode }) {
+  const categories: Category[] = getAllCategories()
+  console.log(categories)
  return (
-    <html lang="en">
-      <body className={`${albertSans.className} ${montserratAlternates.variable}`}>
-        <header className="w-full bg-white">
-          <nav className="flex justify-between px-6 py-4">
-            <Link href="/">
-              <div className="relative cursor-pointer">
-                {/* Desktop Logo */}
-                <img
-                  src={PFLogo.src}
-                  alt="PrintForge Logo"
-                  className="w-[200px] h-auto hidden md:block"
-                />
-                {/* Mobile Logo */}
-                <img
-                  src={PFLogoIcon.src}
-                  alt="PrintForge Logo"
-                  className="w-[40px] h-auto block md:hidden"
-                />
-              </div>
-            </Link>
-            <ul className="flex items-center gap-2.5">
-              <li className="text-sm uppercase cursor-pointer">
-                <Link href="/3d-models">3D Models</Link>
-              </li>
-              <li className="text-sm uppercase cursor-pointer">
-                <Link href="/about">About</Link>
-              </li>
+    <div className="relative flex flex-col min-h-screen md:flex-row">
+      {/* Responsive Navigation */}
+      <aside className="sticky top-0 z-10 w-full bg-white border-b border-gray-200 md:fixed md:w-64 md:top-1/2 md:-translate-y-1/2 md:border-none">
+        <div className="relative">
+          <nav className="w-full overflow-x-auto md:overflow-visible scrollbar-hide">
+            <ul className="flex px-4 py-3 space-x-4 whitespace-nowrap md:flex-col md:p-0 md:space-x-0 md:space-y-3">
+              <Link
+                href="/3d-models"
+              >
+                All
+              </Link>
+              {categories.map(item => (
+                <Link
+                  href={`/3d-models/categories/${item.slug}`}
+                  key={item.slug}
+                >
+                  {item.displayName}
+                </Link>
+              ))}
             </ul>
           </nav>
-        </header>
-        {children}
-      </body>
-    </html>
-  );
+          {/* Fading edge/gradient for horizontal scroll hint on mobile */}
+          <div className="absolute top-0 right-0 w-8 h-full pointer-events-none bg-gradient-to-l from-white to-transparent md:hidden" />
+        </div>
+      </aside>
+
+      {/* Main Content Area */}
+      <main className="flex-1 p-4 md:ml-64">{children}</main>
+    </div>
+  )
 }

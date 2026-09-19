@@ -1,4 +1,4 @@
-import type { ReactNode } from "react"
+import type { HTMLAttributes, ReactNode } from "react"
 
 // Data Types
 export type Model = {
@@ -11,7 +11,22 @@ export type Model = {
   dateAdded: string
 }
 
+export type Category = {
+    displayName: string
+    slug: string
+}
+
+export type CategoriesData = {
+    categories: Category[]
+}
+
 // Page Types
+export type CategoryPageProps = {
+    params: Promise<{
+        categoryName: string
+    }>
+}
+
 export type RootLayoutProps = Readonly<{
   children: React.ReactNode;
 }>
@@ -27,7 +42,12 @@ export type ModelCardProps = {
     model: Model
 }
 
-export type PillProps = {
+export type ModelsGridProps = {
+    title: string
+    models: Model[]
+}
+
+export type PillProps = HTMLAttributes<HTMLSpanElement> & {
     children: ReactNode
     className?: string
 }
