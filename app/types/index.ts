@@ -11,6 +11,10 @@ export type Model = {
   dateAdded: string
 }
 
+export type GetModelsParams = {
+    category?: Model["category"]
+}
+
 export type Category = {
     displayName: string
     slug: string
