@@ -61,6 +61,9 @@ export type NavLinkProps = {
     isActive?:boolean
 }
 
+export type CategoriesNavProps = {
+    categories: Category[]
+}
 export type ModelsPageProps = {
     searchParams: {
         q?: string

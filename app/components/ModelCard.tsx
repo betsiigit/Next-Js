@@ -1,8 +1,23 @@
+import fs from "node:fs"
+import path from "node:path"
 import Link from "next/link"
 import { FaRegHeart } from "react-icons/fa6"
 import Pill from "./Pill"
 import { ModelCardProps } from "@/app/types"
 import placeholderImg from "@/public/placeholder.png"
+
+// Files inside `public/` are served from the site root, so
+// `public/models/1.jpg` is reachable at the URL `/models/1.jpg`
+// (the `public` folder is never part of the URL).
+// Falls back to the bundled placeholder when the file is missing.
+function getImageSrc(image: string): string {
+    if (!image) {
+        return placeholderImg.src
+    }
+
+    const filePath = path.join(process.cwd(), "public", image)
+    return fs.existsSync(filePath) ? image : placeholderImg.src
+}
 
 export default function ModelCard({ model }: ModelCardProps) {
     return (
@@ -14,7 +29,7 @@ export default function ModelCard({ model }: ModelCardProps) {
             <div className="overflow-hidden transition-shadow bg-white rounded-lg shadow-md hover:shadow-lg" role="article">
                 <div className="relative aspect-square">
                     <img
-                        src={placeholderImg.src}
+                        src={getImageSrc(model.image)}
                         alt={model.name}
                         className="absolute inset-0 object-cover w-full h-full"
                     />

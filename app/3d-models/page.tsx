@@ -7,7 +7,7 @@ import { getModels } from "@/app/lib/models"
 
 export default async function Page({ searchParams }: ModelsPageProps) {
     const models = await getModels()
-    const query = (await searchParams)?.query?.toLowerCase() || ""
+    const query = (await searchParams)?.q?.toLowerCase() || ""
 
     const filteredModels = query
         ? models.filter(model =>
